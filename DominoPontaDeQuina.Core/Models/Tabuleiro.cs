@@ -1,4 +1,5 @@
 using DominoPontaDeQuina.Core.Enums;
+using DominoPontaDeQuina.Core.Regras;
 
 namespace DominoPontaDeQuina.Core.Models;
 
@@ -63,6 +64,14 @@ public class Tabuleiro
     /// <returns>A soma das pontas externas, ou 0 quando o tabuleiro estiver vazio.</returns>
     public int SomarPontasExternas() =>
         EstaVazio ? 0 : PontaEsquerda!.Value + PontaDireita!.Value;
+
+    /// <summary>
+    /// Calcula os pontos gerados pelas pontas externas atuais.
+    /// Aplica a regra de <see cref="CalculadoraPontuacao"/> sobre <see cref="SomarPontasExternas"/>.
+    /// </summary>
+    /// <returns>A soma das pontas dividida por 5 quando for multipla de 5; caso contrario, 0.</returns>
+    public int CalcularPontuacao() =>
+        CalculadoraPontuacao.Calcular(SomarPontasExternas());
 
     /// <summary>
     /// Determina se o tabuleiro esta travado.
